@@ -22,7 +22,9 @@ export default class Todo extends Component {
   // 添加到未完成
   addList = () => {
     const list = [...this.state.undoList]
-    list.push(this.state.inputVal)
+    if (this.state.inputVal) {
+      list.push(this.state.inputVal)
+    }
     this.setState({
       undoList: list,
       inputVal: ''
