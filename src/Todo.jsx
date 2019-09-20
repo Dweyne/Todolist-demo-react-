@@ -48,10 +48,27 @@ export default class Todo extends Component {
     })
   }
 
+  // 回车添加
   onEnter = (e) => {
     if (e.nativeEvent.keyCode === 13) {
       this.addList()
     }
+  }
+
+  // 删除
+  delete = (e, index, type) => {
+    e.stopPropagation()
+    let undoList = [...this.state.undoList]
+    let doneList = [...this.state.doneList]
+    if (type === 'done') {
+      undoList.splice(index, 1)
+    } else if (type === 'undo') {
+      doneList.splice(index, 1)
+    }
+    this.setState({
+      doneList,
+      undoList
+    })
   }
 
   render() {
@@ -65,13 +82,13 @@ export default class Todo extends Component {
         <h3>undo</h3>
         <ul>
           {
-            <List list={undoList} type={'done'} toggleItem={this.toggleItem} />
+            <List list={undoList} type={'done'} toggleItem={this.toggleItem} deleteItem={this.delete} />
           }
         </ul>
         <h3>done</h3>
         <ul>
         {
-            <List list={doneList} type={'undo'} toggleItem={this.toggleItem} />
+            <List list={doneList} type={'undo'} toggleItem={this.toggleItem} deleteItem={this.delete} />
           }
         </ul>
       </Fragment>
