@@ -57,7 +57,7 @@ export default class Todo extends Component {
 
   // 删除
   delete = (e, index, type) => {
-    e.stopPropagation()
+    e.stopPropagation() // 阻止事件冒泡
     let undoList = [...this.state.undoList]
     let doneList = [...this.state.doneList]
     if (type === 'done') {
